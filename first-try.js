@@ -1,3 +1,5 @@
+require('chromedriver');
+
 const {Builder, By, Key, until} = require('selenium-webdriver');
 
 (async function example() {

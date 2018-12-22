@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/ParisYiddishCentre/publishingtool#readme",
   "devDependencies": {
+    "chromedriver": "^2.45.0",
     "selenium-webdriver": "^4.0.0-alpha.1"
-  }
+  },
+  "dependencies": {}
 }
