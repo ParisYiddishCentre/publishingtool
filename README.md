@@ -2,4 +2,4 @@
 An automated publishing tool.
 
 # Enviroment variables
-PASSWORD, USER, SITE
+PT_PASSWORD, PT_USER, PT_SITE
