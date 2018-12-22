@@ -1,2 +1,5 @@
 # publishingtool
-An automated publishing tool. Testing 123...
+An automated publishing tool.
+
+# Enviroment variables
+PASSWORD, USER, SITE
