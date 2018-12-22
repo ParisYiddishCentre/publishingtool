@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ParisYiddishCentre/publishingtool/issues"
   },
-  "homepage": "https://github.com/ParisYiddishCentre/publishingtool#readme"
+  "homepage": "https://github.com/ParisYiddishCentre/publishingtool#readme",
+  "devDependencies": {
+    "selenium-webdriver": "^4.0.0-alpha.1"
+  }
 }
