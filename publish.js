@@ -10,6 +10,8 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
     await driver.findElement(By.css('input[name="mail"]')).sendKeys(process.env.PT_USER);
     await driver.findElement(By.css('input[name="pass"]')).sendKeys(process.env.PT_PASSWORD);
     await driver.findElement(By.css('input[name="login"]')).click();
+    await driver.wait(until.elementLocated(By.className('newEvent')));
+    await driver.findElement(By.className('newEvent')).click();
       
 //    await driver.findElement(By.name('q')).sendKeys('webdriver', Key.RETURN);
 //    await driver.wait(until.titleIs('webdriver - Google Search'), 1000);
