@@ -44,9 +44,11 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
       .sendKeys(jsonArray[eventNumber].A_Nature);
 
     // other nature
-    //if (jsonArray[eventNumber].A_Nature = "Autre") {
-    //    await driver.findElement(By.css('input[name="type_autre_event"]')).sendKeys(jsonArray[eventNumber].A_Autre);
-    //}
+    if ((jsonArray[eventNumber].A_Nature = "Autre")) {
+      await driver
+        .findElement(By.css('input[name="type_autre_event"]'))
+        .sendKeys(jsonArray[eventNumber].A_Autre);
+    }
 
     await driver
       .findElement(By.css('input[name="titreEvent"]'))
