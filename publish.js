@@ -1,3 +1,11 @@
+if (process.argv.length < 4 || process.argv.length > 5) {
+  console.error(`Error 1: wrong number of arguments.
+  Usage:
+  npm run publish <input file> <first row to process> [last row to process]
+  `);
+  process.exit(1);
+}
+
 require("chromedriver");
 require("dotenv").config();
 const csv = require("csvtojson");
