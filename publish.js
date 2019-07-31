@@ -21,6 +21,8 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
   // Load input file into jsonArray
   const jsonArray = await csv().fromFile(csvFilePath);
 
+  //console.log(jsonArray[eventNumber]);
+
   let driver = await new Builder().forBrowser("chrome").build();
   try {
     await driver.get(process.env.PT_SITE);
@@ -42,7 +44,7 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
       .sendKeys(jsonArray[eventNumber].A_Nature);
 
     // other nature
-    if ((jsonArray[eventNumber].A_Nature = "Autre")) {
+    if (/autre/i.test(jsonArray[eventNumber].A_Nature)) {
       await driver
         .findElement(By.css('input[name="type_autre_event"]'))
         .sendKeys(jsonArray[eventNumber].A_Autre);
@@ -57,9 +59,16 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
     await driver
       .findElement(By.css('input[name="serieEvent"]'))
       .sendKeys(jsonArray[eventNumber].A_Série);
+
     await driver
       .findElement(By.name("descEvent"))
-      .sendKeys(jsonArray[eventNumber].A_descEvent);
+      .sendKeys(
+        jsonArray[eventNumber].DESCRIPTION.replace("<br>", "\n").replace(
+          /<\/?.+?>/g,
+          ""
+        )
+      );
+
     await driver
       .findElement(By.css('select[name="langue"]'))
       .sendKeys(jsonArray[eventNumber].A_Langue);
@@ -70,6 +79,10 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
     // second section
 
     // third section
+    /*    await driver
+      .findElement(By.css('input[name="logoE"]'))
+      .sendKeys(jsonArray[eventNumber].A_Illustration);
+*/
     await driver
       .findElement(By.css('input[name="pageWeb"]'))
       .sendKeys(jsonArray[eventNumber].A_Page);
