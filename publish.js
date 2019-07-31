@@ -79,10 +79,18 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
     // second section
 
     // third section
-    /*    await driver
+
+    const illustrationPath = path.join(
+      // NOTE: this only works for Unix-compatible systems:
+
+      "/",
+      ...jsonArray[eventNumber].A_Illustration.split(":")
+    );
+
+    await driver
       .findElement(By.css('input[name="logoE"]'))
-      .sendKeys(jsonArray[eventNumber].A_Illustration);
-*/
+      .sendKeys(illustrationPath);
+
     await driver
       .findElement(By.css('input[name="pageWeb"]'))
       .sendKeys(jsonArray[eventNumber].A_Page);
