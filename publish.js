@@ -21,8 +21,6 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
   // Load input file into jsonArray
   const jsonArray = await csv().fromFile(csvFilePath);
 
-  console.log(jsonArray[eventNumber].A_descEvent);
-
   let driver = await new Builder().forBrowser("chrome").build();
   try {
     await driver.get(process.env.PT_SITE);
