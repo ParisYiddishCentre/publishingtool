@@ -13,6 +13,8 @@ const path = require("path");
 
 const csvFilePath = path.resolve("input", process.argv[2]);
 
+const namesFilePath = path.resolve("input", "names.csv");
+
 const eventNumber = process.argv[3];
 
 const { Builder, By, Key, until } = require("selenium-webdriver");
@@ -20,6 +22,9 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
 (async function example() {
   // Load input file into jsonArray
   const jsonArray = await csv().fromFile(csvFilePath);
+
+  // Load names file into namesJson
+  const namesJson = await csv().fromFile(namesFilePath);
 
   //console.log(jsonArray[eventNumber]);
 
@@ -63,7 +68,7 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
     await driver
       .findElement(By.name("descEvent"))
       .sendKeys(
-        jsonArray[eventNumber].DESCRIPTION.replace("<br>", "\n").replace(
+        jsonArray[eventNumber].DESCRIPTION.replace(/<br>/g, "\n").replace(
           /<\/?.+?>/g,
           ""
         )
@@ -77,6 +82,34 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
       .sendKeys(jsonArray[eventNumber].A_Catégories);
 
     // second section
+
+    let namesInEvent = jsonArray[eventNumber].DESCRIPTION.match(/<b>.+?<\/b>/g)
+      .map(name => name.replace(/<\/?b>/g, ""))
+      .filter(name =>
+        namesJson.some(jsonName => jsonName.nom_complet === name)
+      );
+
+    // remove duplicate names
+    namesInEvent = [...new Set(namesInEvent)];
+
+    for (let i = 0; i < namesInEvent.length - 1; i++) {
+      await driver.findElement(By.className("addIntervenant")).click();
+    }
+
+    const prenoms = await driver.findElements(
+      By.css('input[name="prenomIntervenant[]"]')
+    );
+    const noms = await driver.findElements(
+      By.css('input[name="nomIntervenant[]"]')
+    );
+
+    for (let i = 0; i < namesInEvent.length; i++) {
+      let prenom = namesJson.filter(o => o.nom_complet === namesInEvent[i])[0]
+        .prenom;
+      await prenoms[i].sendKeys(prenom);
+      let nom = namesJson.filter(o => o.nom_complet === namesInEvent[i])[0].nom;
+      await noms[i].sendKeys(nom);
+    }
 
     // third section
 
