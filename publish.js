@@ -83,7 +83,10 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
 
     // second section
 
-    let namesInEvent = jsonArray[eventNumber].DESCRIPTION.match(/<b>.+?<\/b>/g)
+    let namesInEvent = jsonArray[eventNumber].DESCRIPTION;
+    namesInEvent = namesInEvent + "<b>Blank</b>";
+    namesInEvent = namesInEvent
+      .match(/<b>.+?<\/b>/g)
       .map(name => name.replace(/<\/?b>/g, ""))
       .filter(name =>
         namesJson.some(jsonName => jsonName.nom_complet === name)
